@@ -48,7 +48,7 @@ const customNetwork = defineChain({
   rpcUrls: {
     default: {
       http: ['https://rpc.sepolia.mantle.xyz'],
-      // webSocket: ['wss://rpc-mainnet.u2u.xyz/ws'],
+      // webSocket:jj ['wss://rpc-mainnet.u2u.xyz/ws'],
     },
   },
   blockExplorers: {
