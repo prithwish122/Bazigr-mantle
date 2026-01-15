@@ -1,22 +1,22 @@
 # 🎯 Bazigr DeFi Platform
 
 **Live Demo:** [https://bazigr-fun.vercel.app/](https://bazigr-fun.vercel.app/)  
-**Network:** Celo Sepolia Testnet  
+**Network:** Mantle Sepolia Testnet  
 
 ---
 
-## 📋 Smart Contract Addresses (Celo Sepolia Testnet)
+## 📋 Smart Contract Addresses (Mantle Sepolia Testnet)
 
 | Contract | Address | Explorer |
 |----------|---------|----------|
-| **BAZ Token** | `0xB5692EC21B4f5667E5fAdA7836F050d9CF51E6A9` | [View]https://sepolia.celoscan.io/address/0xB5692EC21B4f5667E5fAdA7836F050d9CF51E6A9) |
-| **WCELO (Wrapped CELO)** | `0x8C3EBc355cC768dD1e9BaFc085B1f0Cb728C7FcF` | [View]https://sepolia.celoscan.io/address/0x8C3EBc355cC768dD1e9BaFc085B1f0Cb728C7FcF) |
-| **UniswapV2 Factory** | `0xf29E685888FbF4f5AADbA8a3dF2499EfF6BFfE1C` | [View]https://sepolia.celoscan.io/address/0xf29E685888FbF4f5AADbA8a3dF2499EfF6BFfE1C) |
-| **UniswapV2 Router** | `0xb15B6512458BF9c4e9D92EE6951201E1B5d6F1A1` | [View]https://sepolia.celoscan.io/address/0xb15B6512458BF9c4e9D92EE6951201E1B5d6F1A1) |
-| **MasterChef (Farming)** | `0xd6f36ebA3775C25Da19D730A687Dc807b7912449` | [View]https://sepolia.celoscan.io/address/0xd6f36ebA3775C25Da19D730A687Dc807b7912449) |
-| **BAZ/WCELO Liquidity Pair** | `0x8e31cdebcDF628aCecf5e4EDAB0A25a9B7a75e14` | [View]https://sepolia.celoscan.io/address/0x8e31cdebcDF628aCecf5e4EDAB0A25a9B7a75e14) |
-| **SWAP** | `0xfE053B49CE20845E6c492A575daCDD5ab7d3038D` | [View]https://sepolia.celoscan.io/address/0xfE053B49CE20845E6c492A575daCDD5ab7d3038D) |
-| **Bridge** | `0x118b30B86500239442744A73F1384D97F8C9B63C` | [View]https://sepolia.celoscan.io/address/0x118b30B86500239442744A73F1384D97F8C9B63C) |
+| **BAZ Token** | `0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF` | [View](https://sepolia.mantlescan.xyz/address/0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF) |
+| **WMANTLE (Wrapped Mantle)** | `0x1aeE0246D98D220aCCEDD8898E24A418EC65C57c` | [View](https://sepolia.mantlescan.xyz/address/0x1aeE0246D98D220aCCEDD8898E24A418EC65C57c) |
+| **UniswapV2 Factory** | `0x26d96DCd0723305f32a32AC5A1bC58928CfE314f` | [View](https://sepolia.mantlescan.xyz/address/0x26d96DCd0723305f32a32AC5A1bC58928CfE314f) |
+| **UniswapV2 Router** | `0xa478C958d3b26D1Da146f7Ae6263AA17AFF7Bc8F` | [View](https://sepolia.mantlescan.xyz/address/0xa478C958d3b26D1Da146f7Ae6263AA17AFF7Bc8F) |
+| **MasterChef (Farming)** | `0x82631dAb37ec2E3103053036451C9a193F5c05B2` | [View](https://sepolia.mantlescan.xyz/address/0x82631dAb37ec2E3103053036451C9a193F5c05B2) |
+| **BAZ/WMANTLE Liquidity Pair** | `0x97Ba9f0A85A4E2FdCbd21a16927FEe4aC47E28fB` | [View](https://sepolia.mantlescan.xyz/address/0x97Ba9f0A85A4E2FdCbd21a16927FEe4aC47E28fB) |
+| **SWAP** | `0x674DEB50b0402bca07c97c1DD34eeD4f9648eE79` | [View](https://sepolia.mantlescan.xyz/address/0x674DEB50b0402bca07c97c1DD34eeD4f9648eE79) |
+| **Bridge** | `0x118b30B86500239442744A73F1384D97F8C9B63C` | [View](https://sepolia.mantlescan.xyz/address/0x118b30B86500239442744A73F1384D97F8C9B63C) |
 
 
 
@@ -25,7 +25,7 @@
 
 ## 🎨 Project Overview
 
-**Bazigr** is a **gamified DeFi platform** built on the **Celo Sepolia Testnet**, designed to make decentralized finance fun, interactive, and rewarding for users of all skill levels.
+**Bazigr** is a **gamified DeFi platform** built on the **Mantle Sepolia Testnet**, designed to make decentralized finance fun, interactive, and rewarding for users of all skill levels.
 
 The platform provides a complete decentralized exchange (DEX) experience with **automated market making (AMM)**, **liquidity pools**, and **yield farming** capabilities. Users can **swap tokens**, **provide liquidity**, and **stake LP tokens** to earn rewards while building their on-chain reputation through activity tracking and rewards.
 
@@ -46,16 +46,16 @@ graph TB
         Ethers["Ethers.js<br/>(Contract Interaction)"]
     end
 
-    subgraph Contracts["📝 Smart Contracts (Celo Sepolia)"]
-        Router["🔄 UniswapV2Router<br/>0xb15B6512..."]
-        Factory["🏭 UniswapV2Factory<br/>0xf29E6858..."]
-        MasterChef["🌾 MasterChef<br/>0xd6f36ebA..."]
-        Tokens["💰 Tokens<br/>- BAZ: 0xB5692EC2...<br/>- WCELO: 0x8C3EBc35..."]
-        Pair["🔗 BAZ/WCELO Pair<br/>0x8e31cdeb..."]
+    subgraph Contracts["📝 Smart Contracts (Mantle Sepolia)"]
+        Router["🔄 UniswapV2Router<br/>0xa478C958..."]
+        Factory["🏭 UniswapV2Factory<br/>0x26d96DCd..."]
+        MasterChef["🌾 MasterChef<br/>0x82631dAb..."]
+        Tokens["💰 Tokens<br/>- BAZ: 0x0e4D19ac...<br/>- WMANTLE: 0x1aeE0246..."]
+        Pair["🔗 BAZ/WMANTLE Pair<br/>0x97Ba9f0A..."]
     end
 
-    subgraph Blockchain["⛓️ Celo Sepolia Blockchain"]
-        Chain["Blockchain Network<br/>- Chain ID: 11142220<br/>- RPC: forno.celo-sepolia"]
+    subgraph Blockchain["⛓️ Mantle Sepolia Blockchain"]
+        Chain["Blockchain Network<br/>- Chain ID: 5003<br/>- RPC: rpc.sepolia.mantle.xyz"]
     end
 
     UI --> Hooks
@@ -77,7 +77,7 @@ graph TB
 
 ### 1️⃣ **🔄 Swap - Token Exchange**
 
-**Purpose:** Trade between **BAZ** and **WCELO** with minimal fees and slippage protection.
+**Purpose:** Trade between **BAZ** and **WMANTLE** with minimal fees and slippage protection.
 
 #### How It Works:
 ```mermaid
@@ -86,11 +86,11 @@ sequenceDiagram
     participant Frontend
     participant Wallet
     participant Router as UniswapV2Router
-    participant Pair as BAZ/WCELO Pair
+    participant Pair as BAZ/WMANTLE Pair
 
-    User->>Frontend: Enter swap amount (e.g., 100 BAZ → WCELO)
+    User->>Frontend: Enter swap amount (e.g., 100 BAZ → WMANTLE)
     Frontend->>Router: Get output amount quote
-    Router->>Pair: Read pool reserves (BAZ, WCELO)
+    Router->>Pair: Read pool reserves (BAZ, WMANTLE)
     Pair-->>Router: Return reserves
     Router-->>Frontend: Calculate output (with 0.3% fee)
     Frontend-->>User: Show exchange rate & fees
@@ -102,7 +102,7 @@ sequenceDiagram
     Frontend->>Router: Execute swap transaction
     Router->>Pair: Swap tokens (x*y=k formula)
     Pair->>Pair: Update reserves + fees
-    Pair-->>User: Receive WCELO tokens
+    Pair-->>User: Receive WMANTLE tokens
 
     Note over Frontend: Fee (0.3%) sent to Liquidity Providers
 ```
@@ -111,11 +111,11 @@ sequenceDiagram
 - ✅ **0.3% Trading Fee** - Distributed to liquidity providers
 - ✅ **5% Slippage Protection** - Prevents sandwich attacks
 - ✅ **Real-time Pricing** - Based on pool reserves (constant product formula: x × y = k)
-- ✅ **Minimal Gas Costs** - Optimized for Celo network
+- ✅ **Minimal Gas Costs** - Optimized for Mantle network
 
 #### User Flow:
 1. Navigate to **Swap** tab
-2. Select token: **BAZ** or **WCELO**
+2. Select token: **BAZ** or **WMANTLE**
 3. Enter amount to swap
 4. Review exchange rate (automatically calculated)
 5. Click "Approve" (if first time) → Sign transaction
@@ -126,7 +126,7 @@ sequenceDiagram
 
 ### 2️⃣ **💧 Liquidity - Provide Capital to Pool**
 
-**Purpose:** Earn trading fees by providing liquidity to the **BAZ/WCELO** pool.
+**Purpose:** Earn trading fees by providing liquidity to the **BAZ/WMANTLE** pool.
 
 #### How It Works:
 ```mermaid
@@ -135,20 +135,20 @@ sequenceDiagram
     participant Frontend
     participant Wallet
     participant Router as UniswapV2Router
-    participant Pair as BAZ/WCELO Pair
+    participant Pair as BAZ/WMANTLE Pair
 
     User->>Frontend: Want to add liquidity
     Frontend->>Frontend: Calculate ratio (equal value)
-    Frontend-->>User: Show: "100 BAZ + 0.5 WCELO = LP Tokens"
+    Frontend-->>User: Show: "100 BAZ + 0.5 WMANTLE = LP Tokens"
     
     User->>Wallet: Approve BAZ token
     Wallet-->>Frontend: BAZ approval done
-    User->>Wallet: Approve WCELO token
-    Wallet-->>Frontend: WCELO approval done
+    User->>Wallet: Approve WMANTLE token
+    Wallet-->>Frontend: WMANTLE approval done
     
     User->>Frontend: Click "Add Liquidity"
     Frontend->>Router: Add liquidity with amounts
-    Router->>Pair: Deposit BAZ & WCELO
+    Router->>Pair: Deposit BAZ & WMANTLE
     Pair->>Pair: Mint LP tokens
     Pair-->>User: Receive LP tokens
     
@@ -157,15 +157,15 @@ sequenceDiagram
 ```
 
 #### What Happens:
-- 📊 **Deposit Equal Value** - 100 BAZ + 0.5 WCELO (approximately equal USD value)
+- 📊 **Deposit Equal Value** - 100 BAZ + 0.5 WMANTLE (approximately equal USD value)
 - 🎟️ **Receive LP Tokens** - Represents your share of the pool
 - 💰 **Earn Trading Fees** - 0.3% of every swap, proportional to your share
 - 🔐 **Keep Your Funds** - You always own and can withdraw your liquidity
 
 #### Economics Example:
 ```
-Pool Total: 1000 BAZ + 5 WCELO = 1000 LP Tokens
-Your Add: 100 BAZ + 0.5 WCELO → You get ~100 LP tokens (10% share)
+Pool Total: 1000 BAZ + 5 WMANTLE = 1000 LP Tokens
+Your Add: 100 BAZ + 0.5 WMANTLE → You get ~100 LP tokens (10% share)
 
 Daily Swaps: $10,000 volume × 0.3% fee = $30 in fees
 Your Share: 10% × $30 = $3 earned per day
@@ -173,15 +173,15 @@ Your Share: 10% × $30 = $3 earned per day
 
 #### User Flow:
 1. Navigate to **Liquidity** tab
-2. **Step 1: Wrap CELO (if needed)**
-   - Enter CELO amount
-   - Click "Wrap CELO" → Sign transaction
-   - Get WCELO tokens
+2. **Step 1: Wrap MNT (if needed)**
+   - Enter MNT amount
+   - Click "Wrap MNT" → Sign transaction
+   - Get WMANTLE tokens
 3. **Step 2: Add Liquidity**
    - Enter BAZ amount (e.g., 100)
-   - System auto-calculates WCELO ratio
+   - System auto-calculates WMANTLE ratio
    - Approve BAZ → Sign
-   - Approve WCELO → Sign
+   - Approve WMANTLE → Sign
    - Add Liquidity → Sign
 4. **Receive LP Tokens** ✅
 5. Go to **Farm** tab to stake and earn BAZ rewards
@@ -189,7 +189,7 @@ Your Share: 10% × $30 = $3 earned per day
 #### Remove Liquidity:
 1. Click "Remove Liquidity"
 2. Enter LP amount to burn
-3. Receive BAZ + WCELO proportionally
+3. Receive BAZ + WMANTLE proportionally
 4. Exit position completely
 
 ---
@@ -270,7 +270,7 @@ On $10,000 investment (100 LP × $100) = 630% APR
    - Receive BAZ tokens instantly
    - Start earning again from 0
 7. **Compound (Optional):**
-   - Swap earned BAZ for WCELO
+   - Swap earned BAZ for WMANTLE
    - Add liquidity again
    - Stake LP for exponential growth
 8. **Unstake (Exit):**
@@ -287,8 +287,8 @@ On $10,000 investment (100 LP × $100) = 630% APR
 ```mermaid
 graph LR
     A["🚀 START<br/>Connect Wallet"] --> B["1️⃣ Get Tokens<br/>BAZ from faucet"]
-    B --> C["2️⃣ Wrap CELO<br/>CELO → WCELO"]
-    C --> D["3️⃣ Add Liquidity<br/>BAZ + WCELO → LP Tokens"]
+    B --> C["2️⃣ Wrap MNT<br/>MNT → WMANTLE"]
+    C --> D["3️⃣ Add Liquidity<br/>BAZ + WMANTLE → LP Tokens"]
     D --> E["4️⃣ Approve LP<br/>Grant permission"]
     E --> F["5️⃣ Stake LP<br/>Start earning BAZ"]
     F --> G["6️⃣ Harvest<br/>Claim rewards"]
@@ -312,7 +312,7 @@ timeline
     
     section Midday
       12:00 PM : Monitor Position : Check LP value
-      12:30 PM : Optional Swap : Trade BAZ/WCELO
+      12:30 PM : Optional Swap : Trade BAZ/WMANTLE
     
     section Afternoon
       3:00 PM : Check Prices : Monitor market
@@ -332,11 +332,11 @@ The **Dashboard** displays real-time information:
 | Metric | Description | Updates |
 |--------|-------------|---------|
 | **BAZ Balance** | Your available BAZ tokens | Every 10s |
-| **WCELO Balance** | Your wrapped CELO for trading | Every 10s |
+| **WMANTLE Balance** | Your wrapped Mantle for trading | Every 10s |
 | **LP Token Balance** | Your pool share tokens | Every 10s |
-| **CELO Balance** | Native CELO for gas fees | Every 10s |
+| **MNT Balance** | Native MNT for gas fees | Every 10s |
 | **Pending Rewards** | BAZ owed to you from farming | Every block (~5s) |
-| **Pool TVL** | Total value locked (BAZ + WCELO) | Every block |
+| **Pool TVL** | Total value locked (BAZ + WMANTLE) | Every block |
 | **APR** | Annual percentage return for farmers | Real-time |
 | **Your Share %** | Your portion of the pool | Every block |
 
@@ -356,15 +356,15 @@ The **Dashboard** displays real-time information:
 - **Language:** Solidity 0.8+
 - **DEX:** Uniswap V2 Fork (Factory + Router + Pair)
 - **Farming:** MasterChef (Yield Farming)
-- **Token:** ERC20 (BAZ) + Wrapped Native (WCELO)
-- **Network:** Celo Sepolia Testnet (Chain ID: 11142220)
+- **Token:** ERC20 (BAZ) + Wrapped Native (WMANTLE)
+- **Network:** Mantle Sepolia Testnet (Chain ID: 5003)
 - **Framework:** Hardhat
 - **Testing:** Mocha + Ethers.js + OpenZeppelin
 
 ### Infrastructure
 - **Deployment:** Vercel
-- **RPC:** Celo Sepolia Forno (https://forno.celo-sepolia.celo-testnet.org/)
-- **Explorer:** Celo Sepolia Explorer (alfajores.celoscan.io)
+- **RPC:** Mantle Sepolia (https://rpc.sepolia.mantle.xyz)
+- **Explorer:** Mantle Sepolia Explorer (sepolia.mantlescan.xyz)
 
 ---
 
@@ -393,10 +393,10 @@ bun run dev
 import { ethers } from 'ethers';
 
 const CONTRACTS = {
-  ROUTER: '0xb15B6512458BF9c4e9D92EE6951201E1B5d6F1A1',
-  MASTERCHEF: '0xd6f36ebA3775C25Da19D730A687Dc807b7912449',
-  BAZ: '0xB5692EC21B4f5667E5fAdA7836F050d9CF51E6A9',
-  WCELO: '0x8C3EBc355cC768dD1e9BaFc085B1f0Cb728C7FcF',
+  ROUTER: '0xa478C958d3b26D1Da146f7Ae6263AA17AFF7Bc8F',
+  MASTERCHEF: '0x82631dAb37ec2E3103053036451C9a193F5c05B2',
+  BAZ: '0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF',
+  WMANTLE: '0x1aeE0246D98D220aCCEDD8898E24A418EC65C57c',
 };
 
 // Initialize contract
@@ -406,8 +406,8 @@ const router = new ethers.Contract(
   signer
 );
 
-// Example: Swap BAZ for WCELO
-const path = [CONTRACTS.BAZ, CONTRACTS.WCELO];
+// Example: Swap BAZ for WMANTLE
+const path = [CONTRACTS.BAZ, CONTRACTS.WMANTLE];
 const deadline = Math.floor(Date.now() / 1000) + 1200;
 
 await router.swapExactTokensForTokens(
@@ -430,13 +430,13 @@ await router.swapExactTokensForTokens(
 
 ### MasterChef Configuration
 - **Reward Rate:** 10 BAZ per block
-- **Start Block:** 8,146,724 (Celo Sepolia)
+- **Start Block:** 33,468,904 (Mantle Sepolia)
 - **Pool 0 Allocation:** 100 points (100% of rewards)
 - **Withdraw Fee:** None (flexible farming)
 
-### WCELO Specifications
+### WMANTLE Specifications
 - **Decimals:** 18
-- **1 WCELO = 1 CELO**
+- **1 WMANTLE = 1 MNT**
 - **Wrap/Unwrap:** 1:1 ratio
 
 ---
@@ -453,27 +453,27 @@ await router.swapExactTokensForTokens(
 ### ⚠️ User Best Practices
 - Start with small amounts to test
 - Always verify transaction details before signing
-- Keep some CELO for gas fees (~0.01 CELO minimum)
+- Keep some MNT for gas fees (~0.01 MNT minimum)
 - Never share your private key or seed phrase
 - Use only official Bazigr website
-- Double-check contract addresses on Celo Explorer
+- Double-check contract addresses on Mantle Explorer
 
 ---
 
 ## 🚀 Getting Started (Quick Start)
 
 ### For New Users
-1. **Connect Wallet** → Use Celo Sepolia testnet
+1. **Connect Wallet** → Use Mantle Sepolia testnet
 2. **Get Tokens** → Request BAZ from faucet
-3. **Wrap CELO** → Convert native CELO to WCELO
-4. **Add Liquidity** → Provide BAZ + WCELO to pool
+3. **Wrap MNT** → Convert native MNT to WMANTLE
+4. **Add Liquidity** → Provide BAZ + WMANTLE to pool
 5. **Stake LP** → Deposit LP tokens to farm
 6. **Earn & Harvest** → Claim BAZ rewards
 
 ### For Developers
 1. **Clone Repo** → Get all source code
 2. **Install Contracts** → `cd smart-contracts && npm install`
-3. **Deploy** → `npx hardhat run scripts/deploy.ts --network celoSepolia`
+3. **Deploy** → `npx hardhat run scripts/deploy-mantle.ts --network mantleSepolia`
 4. **Integrate** → Use contract ABIs from `artifacts/`
 5. **Test** → Run test suite: `npm test`
 
@@ -481,7 +481,7 @@ await router.swapExactTokensForTokens(
 
 ## 📱 Supported Features
 
-- ✅ **Token Swapping** - Trade BAZ ↔ WCELO
+- ✅ **Token Swapping** - Trade BAZ ↔ WMANTLE
 - ✅ **Liquidity Provision** - Add/remove liquidity
 - ✅ **Yield Farming** - Stake LP for BAZ rewards
 - ✅ **Real-time Dashboard** - View balances & rewards
@@ -494,10 +494,10 @@ await router.swapExactTokensForTokens(
 ## 📞 Support & Resources
 
 ### Contract Verification
-- [BAZ Token]https://sepolia.celoscan.io/address/0xB5692EC21B4f5667E5fAdA7836F050d9CF51E6A9)
-- [WCELO]https://sepolia.celoscan.io/address/0x8C3EBc355cC768dD1e9BaFc085B1f0Cb728C7FcF)
-- [UniswapV2 Router]https://sepolia.celoscan.io/address/0xb15B6512458BF9c4e9D92EE6951201E1B5d6F1A1)
-- [MasterChef]https://sepolia.celoscan.io/address/0xd6f36ebA3775C25Da19D730A687Dc807b7912449)
+- [BAZ Token](https://sepolia.mantlescan.xyz/address/0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF)
+- [WMANTLE](https://sepolia.mantlescan.xyz/address/0x1aeE0246D98D220aCCEDD8898E24A418EC65C57c)
+- [UniswapV2 Router](https://sepolia.mantlescan.xyz/address/0xa478C958d3b26D1Da146f7Ae6263AA17AFF7Bc8F)
+- [MasterChef](https://sepolia.mantlescan.xyz/address/0x82631dAb37ec2E3103053036451C9a193F5c05B2)
 
 ### Documentation
 - 📖 [DEFI_USER_GUIDE.md](./DEFI_USER_GUIDE.md) - Complete user guide
@@ -505,10 +505,10 @@ await router.swapExactTokensForTokens(
 - 🔧 [FRONTEND_INTEGRATION.md](./smart-contracts/FRONTEND_INTEGRATION.md) - Developer guide
 
 ### Network Info
-- **Network:** Celo Sepolia Testnet
-- **Chain ID:** 11142220
-- **RPC:** https://forno.celo-sepolia.celo-testnet.org/
-- **Explorer:** https://alfajores.celoscan.io/
+- **Network:** Mantle Sepolia Testnet
+- **Chain ID:** 5003
+- **RPC:** https://rpc.sepolia.mantle.xyz
+- **Explorer:** https://sepolia.mantlescan.xyz/
 
 ---
 
@@ -531,5 +531,5 @@ This project is licensed under the MIT License. See the [LICENSE](./LICENSE) fil
 
 **🎉 Start your DeFi journey with Bazigr today!**
 
-**Network:** Celo Sepolia | **Chain ID:** 11142220  
-**Version:** 1.0 | **Last Updated:** October 26, 2025
+**Network:** Mantle Sepolia | **Chain ID:** 5003  
+**Version:** 1.0 | **Last Updated:** January 15, 2026
