@@ -1,25 +1,26 @@
-import { error } from "console";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  ignoreBuildErrors: true,
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
+  staticPageGenerationTimeout: 120,
   webpack: (config, { isServer }) => {
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
       net: false,
       tls: false,
+      crypto: false,
     };
 
-    // Ignore missing modules
+    // Ignore missing modules and other warnings
     config.ignoreWarnings = [
+      { module: /node_modules/ },
       { module: /@wagmi\/core/ },
       { module: /@reown\/appkit/ },
     ];
