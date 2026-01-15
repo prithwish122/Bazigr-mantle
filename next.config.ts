@@ -10,6 +10,22 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  webpack: (config, { isServer }) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      net: false,
+      tls: false,
+    };
+
+    // Ignore missing modules
+    config.ignoreWarnings = [
+      { module: /@wagmi\/core/ },
+      { module: /@reown\/appkit/ },
+    ];
+
+    return config;
+  },
   images: {
     remotePatterns: [
       {
