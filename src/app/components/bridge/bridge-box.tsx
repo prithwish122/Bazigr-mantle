@@ -142,10 +142,10 @@ export function BridgeBox() {
             params: [
               {
                 chainId: targetChainIdHex,
-                chainName: "Celo Sepolia Testnet",
+                chainName: "Mantle Sepolia Testnet",
                 nativeCurrency: { name: "MNT", symbol: "MNT", decimals: 18 },
-                rpcUrls: ["https://forno.celo-sepolia.celo-testnet.org/"],
-                blockExplorerUrls: ["https://celo-sepolia.blockscout.com/"],
+                rpcUrls: ["https://rpc.sepolia.mantle.xyz"],
+                blockExplorerUrls: ["https://sepolia.mantlescan.xyz/"],
               },
             ],
           })
@@ -674,7 +674,7 @@ export function BridgeBox() {
             <div className="text-xs text-muted-foreground">{fromAmount || "0"} BAZ</div>
             {chainId && (
               <div className="text-xs text-muted-foreground">
-                Current network: {chainId === 39 ? "U2U" : chainId === 11155111 ? "Sepolia" : "Celo Sepolia Testnet"}
+                Current network: {chainId === 39 ? "U2U" : chainId === 11155111 ? "Sepolia" : chainId === 5003 ? "Mantle Sepolia" : "Unknown"}
               </div>
             )}
           </div>
