@@ -13,8 +13,8 @@ import { useAppKitAccount } from "@reown/appkit/react"
 import tokenAbi from "@/app/contract/abi.json"
 import swapAbiJson from "@/app/contract/swap-abi.json"
 
-// Extract the ABI from the Hardhat artifact
-const swapAbi = swapAbiJson.abi
+// The swap-abi.json file contains the ABI array directly
+const swapAbi = swapAbiJson
 
 type Token = "MNT" | "BAZ"
 const TOKENS: Token[] = ["MNT", "BAZ"]
