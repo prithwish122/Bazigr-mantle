@@ -21,7 +21,7 @@ export default function FAQ() {
     {
       question: "What kind of rewards can I earn?",
       answer:
-        "You earn instant cashback, XP points, and Celo Sepolia Testnet tokens that can be redeemed for real prizes or used to unlock mini-games and boosts.",
+        "You earn instant cashback, XP points, and Mantle Sepolia Testnet tokens that can be redeemed for real prizes or used to unlock mini-games and boosts.",
     },
     {
       question: "Is Bazigr beginner-friendly?",
@@ -31,7 +31,7 @@ export default function FAQ() {
     {
       question: "How does the leaderboard work?",
       answer:
-        "Every transaction, quest, and game adds to your score. At the end of each month, top players win bonus Celo Sepolia Testnet tokens and exclusive in-game rewards.",
+        "Every transaction, quest, and game adds to your score. At the end of each month, top players win bonus Mantle Sepolia Testnet tokens and exclusive in-game rewards.",
     },
   ]
 
@@ -100,15 +100,15 @@ export default function FAQ() {
 
           {/* Globe Section - Right Side */}
           <div className="flex items-center justify-center lg:justify-start sticky top-24">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative"
             >
-               
+
               <Globe className="drop-shadow-2xl" />
-            
+
             </motion.div>
           </div>
         </div>

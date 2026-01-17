@@ -16,18 +16,18 @@ export default function HowItWorks() {
         "Perform DeFi actions: swap, bridge, lend, stake",
         "Earn cashback and XP instantly",
       ],
-    }, 
+    },
     {
       id: "02",
       title: "Earn & Rise",
       subtitle: "Rewards, Games & Leaderboard",
       description:
         "Turn every on-chain move into fun — play mini-games after transactions, complete daily quests, and climb the leaderboard.",
-      extra: "Redeem your Celo Sepolia Testnet tokens for real prizes or reinvest them to boost your DeFi journey.",
+      extra: "Redeem your Mantle Sepolia Testnet tokens for real prizes or reinvest them to boost your DeFi journey.",
       details: [
         "Mini-games after every transaction",
         "Daily quests and monthly leaderboard",
-        "Redeem Celo Sepolia Testnet tokens for real rewards",
+        "Redeem Mantle Sepolia Testnet tokens for real rewards",
       ],
     },
   ]
@@ -43,7 +43,7 @@ export default function HowItWorks() {
           className="text-center mb-[100px] mt-[60px]"
         >
           <h1 className="text-6xl  text-white mb-4 tracking-tight">How it works ?</h1>
-          
+
         </motion.div>
 
         {/* Process Flow: 2 containers, glass only (no colored gradients) */}
