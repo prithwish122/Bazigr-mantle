@@ -7,7 +7,7 @@ type ChatMessage = { role: "user" | "assistant"; content: string };
 function buildFallbackReply(input: string): string {
   const text = (input || "").toLowerCase();
   if (!text) return "Hello! How can I help you with Bazigr today?";
-  if (/hi|hello|hey/.test(text)) return "Hello! Ask me to swap, send or bridge. For example: swap 1 CELO to BAZ.";
+  if (/hi|hello|hey/.test(text)) return "Hello! Ask me to swap, send or bridge. For example: swap 1 MNT to BAZ.";
   if (/wallet|address/.test(text)) return "I can't read your wallet from the server. In the app header, connect your wallet; your address will show there.";
   if (/swap|exchange/.test(text)) return "To swap: 'swap 1 CELO to BAZ' or 'swap 100 BAZ to CELO'. The agent input will execute it.";
   if (/send|transfer/.test(text)) return "To send: 'send 5 BAZ to 0x...' or 'send 0.1 CELO to 0x...'.";
