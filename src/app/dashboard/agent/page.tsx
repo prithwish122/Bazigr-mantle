@@ -43,10 +43,10 @@ export default function AgentPage() {
     "0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF" as `0x${string}`
   ), [])
   const SWAP_ADDRESS = useMemo(() => (
-    "0xfE053B49CE20845E6c492A575daCDD5ab7d3038D" as `0x${string}`
+    "0x674DEB50b0402bca07c97c1DD34eeD4f9648eE79" as `0x${string}`
   ), [])
   // Bridge constants (same as manual bridge)
-  const CELO_BRIDGE_ADDRESS = useMemo(() => (
+  const MANTLE_BRIDGE_ADDRESS = useMemo(() => (
     "0x118b30B86500239442744A73F1384D97F8C9B63C" as `0x${string}`
   ), [])
   const SEPOLIA_BRIDGE_ADDRESS = useMemo(() => (
@@ -55,7 +55,7 @@ export default function AgentPage() {
   const U2U_BRIDGE_ADDRESS = useMemo(() => (
     "0xEA41526ac190C2521e046D98159eCCcC7a05F218" as `0x${string}`
   ), [])
-  const CELO_TOKEN_ADDRESS = useMemo(() => (
+  const MANTLE_TOKEN_ADDRESS = useMemo(() => (
     "0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF" as `0x${string}`
   ), [])
   const SEPOLIA_TOKEN_ADDRESS = useMemo(() => (
@@ -124,12 +124,12 @@ export default function AgentPage() {
       nativeCurrency = { name: "U2U", symbol: "U2U", decimals: 18 }
       rpcUrls = ["https://rpc-mainnet.u2u.xyz"]
       blockExplorerUrls = ["https://u2uscan.xyz/"]
-    } else if (targetNetwork === "celo") {
+    } else if (targetNetwork === "mantle") {
       chainId = "0x138B" // Mantle Sepolia chainId 5003
-      chainName = "Celo Sepolia Testnet"
-      nativeCurrency = { name: "CELO", symbol: "CELO", decimals: 18 }
-      rpcUrls = ["https://forno.celo-sepolia.celo-testnet.org/"]
-      blockExplorerUrls = ["https://celo-sepolia.blockscout.com/"]
+      chainName = "Mantle Sepolia Testnet"
+      nativeCurrency = { name: "MNT", symbol: "MNT", decimals: 18 }
+      rpcUrls = ["https://rpc.sepolia.mantle.xyz"]
+      blockExplorerUrls = ["https://sepolia.mantlescan.xyz/"]
     } else if (targetNetwork === "sepolia") {
       chainId = "0xAA36A7" // Sepolia chainId 11155111
       chainName = "Sepolia"
@@ -175,11 +175,11 @@ export default function AgentPage() {
             method: "wallet_addEthereumChain",
             params: [
               {
-                chainId: targetChainIdHex, // Celo Sepolia chainId 11142220
-                chainName: "Celo Sepolia Testnet",
-                nativeCurrency: { name: "CELO", symbol: "CELO", decimals: 18 },
-                rpcUrls: ["https://forno.celo-sepolia.celo-testnet.org/"],
-                blockExplorerUrls: ["https://celo-sepolia.blockscout.com/"],
+                chainId: targetChainIdHex, // Mantle Sepolia chainId 5003
+                chainName: "Mantle Sepolia Testnet",
+                nativeCurrency: { name: "MNT", symbol: "MNT", decimals: 18 },
+                rpcUrls: ["https://rpc.sepolia.mantle.xyz"],
+                blockExplorerUrls: ["https://sepolia.mantlescan.xyz/"],
               },
             ],
           })
@@ -273,12 +273,12 @@ export default function AgentPage() {
     }
 
     // Step 1: Approve bridge to spend tokens
-    const tokenContract = new ethers.Contract(CELO_TOKEN_ADDRESS, tokenAbi, signer)
-    const approveTx = await tokenContract.approve(CELO_BRIDGE_ADDRESS, amountWei)
+    const tokenContract = new ethers.Contract(MANTLE_TOKEN_ADDRESS, tokenAbi, signer)
+    const approveTx = await tokenContract.approve(MANTLE_BRIDGE_ADDRESS, amountWei)
     await approveTx.wait()
 
     // Step 2: Lock tokens in bridge
-    const bridgeContract = new ethers.Contract(CELO_BRIDGE_ADDRESS, bridgeAbi, signer)
+    const bridgeContract = new ethers.Contract(MANTLE_BRIDGE_ADDRESS, bridgeAbi, signer)
     const lockTx = await bridgeContract.lockTokens(amountWei)
     const lockReceipt = await lockTx.wait()
     console.log("Lock transaction confirmed:", lockTx.hash)
@@ -469,7 +469,7 @@ export default function AgentPage() {
 
     // Step 4: Unlock tokens on CELO
     const celoSigner = await celoProvider.getSigner()
-    const celoBridgeContract = new ethers.Contract(CELO_BRIDGE_ADDRESS, sepoliaBridgeAbi.abi, celoSigner)
+    const celoBridgeContract = new ethers.Contract(MANTLE_BRIDGE_ADDRESS, sepoliaBridgeAbi.abi, celoSigner)
 
     // Check bridge balance first
     const bridgeBalance = await celoBridgeContract.getBridgeBalance()
