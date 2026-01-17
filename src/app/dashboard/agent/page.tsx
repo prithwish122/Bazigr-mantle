@@ -201,9 +201,9 @@ export default function AgentPage() {
   }
 
   function parseIntent(input: string):
-    | { kind: "swap"; from: "CELO" | "BAZ"; toToken: "CELO" | "BAZ"; amount?: string }
-    | { kind: "send"; token?: "BAZ" | "CELO"; to?: `0x${string}`; amount?: string }
-    | { kind: "bridge"; amount?: string; fromNet?: "u2u" | "celo" | "sepolia"; toNet?: "u2u" | "celo" | "sepolia" }
+    | { kind: "swap"; from: "MNT" | "BAZ"; toToken: "MNT" | "BAZ"; amount?: string }
+    | { kind: "send"; token?: "BAZ" | "MNT"; to?: `0x${string}`; amount?: string }
+    | { kind: "bridge"; amount?: string; fromNet?: "u2u" | "mantle" | "sepolia"; toNet?: "u2u" | "mantle" | "sepolia" }
     | { kind: "unknown" } {
     const text = input.toLowerCase()
     const amountMatch = input.match(/(\d+\.?\d*)/)
@@ -212,51 +212,51 @@ export default function AgentPage() {
     const hasSend = /(\bsend\b|\btransfer\b)/.test(text)
     const hasBridge = /(\bbridge\b)/.test(text)
     const toBaz = /(to\s+baz|for\s+baz|\sbaz\b)/.test(text)
-    const toCELO = /(to\s+celo|for\s+celo|\bcelo\b)/.test(text)
+    const toMNT = /(to\s+mnt|for\s+mnt|\bmnt\b|mantle)/.test(text)
     const fromBaz = /(from\s+baz)/.test(text)
-    const fromCELO = /(from\s+celo)/.test(text)
-    const bazToCELO = /(baz\s*(->|to)\s*celo)/.test(text)
-    const celoToBaz = /(celo\s*(->|to)\s*baz)/.test(text)
+    const fromMNT = /(from\s+mnt)/.test(text)
+    const bazToMNT = /(baz\s*(->|to)\s*(mnt|mantle))/.test(text)
+    const mntToBaz = /((mnt|mantle)\s*(->|to)\s*baz)/.test(text)
     const amount = amountMatch ? amountMatch[1] : undefined
     const to = (addrMatch ? (addrMatch[0] as `0x${string}`) : undefined)
     if (hasSwap) {
-      let from: "CELO" | "BAZ" | undefined
-      if (fromBaz || bazToCELO || (toCELO && !toBaz)) from = "BAZ"
-      else if (fromCELO || celoToBaz || (toBaz && !toCELO)) from = "CELO"
-      else if (toCELO && toBaz) from = undefined
-      if (!from) from = "CELO" // sensible default
-      const dest = from === "CELO" ? "BAZ" : "CELO"
+      let from: "MNT" | "BAZ" | undefined
+      if (fromBaz || bazToMNT || (toMNT && !toBaz)) from = "BAZ"
+      else if (fromMNT || mntToBaz || (toBaz && !toMNT)) from = "MNT"
+      else if (toMNT && toBaz) from = undefined
+      if (!from) from = "MNT" // sensible default
+      const dest = from === "MNT" ? "BAZ" : "MNT"
       return { kind: "swap", from, toToken: dest, amount }
     }
     if (hasSend) {
-      const token: "BAZ" | "CELO" | undefined = toBaz ? "BAZ" : toCELO ? "CELO" : undefined
+      const token: "BAZ" | "MNT" | undefined = toBaz ? "BAZ" : toMNT ? "MNT" : undefined
       return { kind: "send", token, to, amount }
     }
     if (hasBridge) {
       // Enhanced bridge parsing for network detection
-      const fromNet: "u2u" | "celo" | "sepolia" | undefined =
+      const fromNet: "u2u" | "mantle" | "sepolia" | undefined =
         /from\s+u2u/.test(text) ? "u2u" :
-          /from\s+celo/.test(text) ? "celo" :
+          /from\s+(mantle|mnt)/.test(text) ? "mantle" :
             /from\s+sepolia/.test(text) ? "sepolia" :
               /u2u\s+to\s+sepolia/.test(text) ? "u2u" :
-                /celo\s+to\s+sepolia/.test(text) ? "celo" :
-                  /sepolia\s+to\s+(u2u|celo)/.test(text) ? "sepolia" : undefined
+                /mantle\s+to\s+sepolia/.test(text) ? "mantle" :
+                  /sepolia\s+to\s+(u2u|mantle)/.test(text) ? "sepolia" : undefined
 
-      const toNet: "u2u" | "celo" | "sepolia" | undefined =
+      const toNet: "u2u" | "mantle" | "sepolia" | undefined =
         /to\s+u2u/.test(text) ? "u2u" :
-          /to\s+celo/.test(text) ? "celo" :
+          /to\s+mantle/.test(text) ? "mantle" :
             /to\s+sepolia/.test(text) ? "sepolia" :
               /u2u\s+to\s+sepolia/.test(text) ? "sepolia" :
-                /celo\s+to\s+sepolia/.test(text) ? "sepolia" :
+                /mantle\s+to\s+sepolia/.test(text) ? "sepolia" :
                   /sepolia\s+to\s+u2u/.test(text) ? "u2u" :
-                    /sepolia\s+to\s+celo/.test(text) ? "celo" : undefined
+                    /sepolia\s+to\s+mantle/.test(text) ? "mantle" : undefined
 
       return { kind: "bridge", amount, fromNet, toNet }
     }
     return { kind: "unknown" }
   }
 
-  async function bridgeFromCeloToSepolia(amount: number) {
+  async function bridgeFromMantleToSepolia(amount: number) {
     const eth = (globalThis as any).ethereum
     if (!eth) {
       throw new Error("Wallet provider not found")
@@ -269,7 +269,7 @@ export default function AgentPage() {
     // Check if we're on the correct network
     const network = await provider.getNetwork()
     if (Number(network.chainId) !== 11142220) {
-      throw new Error("Please switch to CELO network to bridge from CELO")
+      throw new Error("Please switch to Mantle network to bridge from Mantle")
     }
 
     // Step 1: Approve bridge to spend tokens
@@ -389,7 +389,7 @@ export default function AgentPage() {
     }
   }
 
-  async function bridgeFromSepoliaToCelo(amount: number) {
+  async function bridgeFromSepoliaToMantle(amount: number) {
     const eth = (globalThis as any).ethereum
     if (!eth) {
       throw new Error("Wallet provider not found")
@@ -459,28 +459,28 @@ export default function AgentPage() {
     // Brief wait for network switch to propagate
     await new Promise(resolve => setTimeout(resolve, 1500))
 
-    // Verify we're on CELO
-    const celoProvider = new ethers.BrowserProvider(eth)
-    const celoNetwork = await celoProvider.getNetwork()
+    // Verify we're on Mantle
+    const mantleProvider = new ethers.BrowserProvider(eth)
+    const mantleNetwork = await mantleProvider.getNetwork()
 
-    if (Number(celoNetwork.chainId) !== 11142220) {
-      throw new Error("Failed to switch to CELO network")
+    if (Number(mantleNetwork.chainId) !== 5003) {
+      throw new Error("Failed to switch to Mantle network")
     }
 
-    // Step 4: Unlock tokens on CELO
-    const celoSigner = await celoProvider.getSigner()
-    const celoBridgeContract = new ethers.Contract(MANTLE_BRIDGE_ADDRESS, sepoliaBridgeAbi.abi, celoSigner)
+    // Step 4: Unlock tokens on Mantle
+    const mantleSigner = await mantleProvider.getSigner()
+    const mantleBridgeContract = new ethers.Contract(MANTLE_BRIDGE_ADDRESS, sepoliaBridgeAbi.abi, mantleSigner)
 
     // Check bridge balance first
-    const bridgeBalance = await celoBridgeContract.getBridgeBalance()
-    console.log("CELO bridge balance:", ethers.formatEther(bridgeBalance))
+    const bridgeBalance = await mantleBridgeContract.getBridgeBalance()
+    console.log("Mantle bridge balance:", ethers.formatEther(bridgeBalance))
 
     if (bridgeBalance < amountWei) {
       throw new Error(`Insufficient bridge balance. Bridge has ${ethers.formatEther(bridgeBalance)} BAZ, need ${ethers.formatEther(amountWei)} BAZ`)
     }
 
     // Check if nonce is already processed
-    const isProcessed = await celoBridgeContract.isNonceProcessed(nonce)
+    const isProcessed = await mantleBridgeContract.isNonceProcessed(nonce)
     console.log("Nonce processed:", isProcessed)
     if (isProcessed) {
       throw new Error("This nonce has already been processed")
@@ -493,7 +493,7 @@ export default function AgentPage() {
         nonce: nonce.toString()
       })
 
-      const selfUnlockTx = await celoBridgeContract.selfUnlockTokens(amountWei, nonce)
+      const selfUnlockTx = await mantleBridgeContract.selfUnlockTokens(amountWei, nonce)
       await selfUnlockTx.wait()
       console.log("Self-unlock transaction confirmed:", selfUnlockTx.hash)
     } catch (selfUnlockError: any) {
@@ -507,7 +507,7 @@ export default function AgentPage() {
           nonce: nonce.toString()
         })
 
-        const unlockTx = await celoBridgeContract.unlockTokens(address, amountWei, nonce)
+        const unlockTx = await mantleBridgeContract.unlockTokens(address, amountWei, nonce)
         await unlockTx.wait()
         console.log("Unlock transaction confirmed:", unlockTx.hash)
       } catch (unlockError: any) {
@@ -791,7 +791,7 @@ export default function AgentPage() {
       try {
         if (!isConnected || !address) throw new Error("Wallet not connected")
         const wei = parseAmountToWei(intent.amount)
-        if (intent.from === "CELO") {
+        if (intent.from === "MNT") {
           // Native -> BAZ
           try {
             await publicClient?.estimateContractGas({
@@ -811,11 +811,11 @@ export default function AgentPage() {
             value: wei,
           })
           await publicClient?.waitForTransactionReceipt({ hash })
-          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Swap successful: ${intent.amount} CELO → ${Number(intent.amount) * 20} BAZ` }])
+          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Swap successful: ${intent.amount} MNT → ${Number(intent.amount) * 20} BAZ` }])
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
         } else {
-          // BAZ -> CELO
+          // BAZ -> MNT
           try {
             await publicClient?.estimateContractGas({
               abi: tokenAbi as any,
@@ -839,7 +839,7 @@ export default function AgentPage() {
             args: [wei],
           })
           await publicClient?.waitForTransactionReceipt({ hash: swapHash })
-          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Swap successful: ${intent.amount} BAZ → ${(Number(intent.amount) / 20).toString()} CELO` }])
+          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Swap successful: ${intent.amount} BAZ → ${(Number(intent.amount) / 20).toString()} MNT` }])
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
         }
@@ -867,7 +867,7 @@ export default function AgentPage() {
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
         } else {
-          // Native CELO send via ethers
+          // Native MNT send via ethers
           const wei = parseAmountToWei(intent.amount)
           const eth = (globalThis as any).ethereum
           if (!eth) throw new Error("Wallet not found")
@@ -875,7 +875,7 @@ export default function AgentPage() {
           const signer = await provider.getSigner()
           const tx = await signer.sendTransaction({ to: intent.to, value: wei })
           await tx.wait()
-          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Sent ${intent.amount} CELO to ${intent.to}` }])
+          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Sent ${intent.amount} MNT to ${intent.to}` }])
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
         }
@@ -893,16 +893,16 @@ export default function AgentPage() {
         const amount = parseFloat(intent.amount)
         if (amount <= 0) throw new Error("Amount must be greater than 0")
 
-        if (intent.fromNet === "celo" && intent.toNet === "sepolia") {
-          // Bridge from CELO to Sepolia
-          await bridgeFromCeloToSepolia(amount)
-          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Bridged ${intent.amount} BAZ from CELO → Sepolia` }])
+        if (intent.fromNet === "mantle" && intent.toNet === "sepolia") {
+          // Bridge from Mantle to Sepolia
+          await bridgeFromMantleToSepolia(amount)
+          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Bridged ${intent.amount} BAZ from Mantle → Sepolia` }])
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
-        } else if (intent.fromNet === "sepolia" && intent.toNet === "celo") {
-          // Bridge from Sepolia to CELO
-          await bridgeFromSepoliaToCelo(amount)
-          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Bridged ${intent.amount} BAZ from Sepolia → CELO` }])
+        } else if (intent.fromNet === "sepolia" && intent.toNet === "mantle") {
+          // Bridge from Sepolia to Mantle
+          await bridgeFromSepoliaToMantle(amount)
+          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: `Bridged ${intent.amount} BAZ from Sepolia → Mantle` }])
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
         } else if (intent.fromNet === "u2u" && intent.toNet === "sepolia") {
@@ -918,7 +918,7 @@ export default function AgentPage() {
           setReward(Math.floor(Math.random() * 10) + 1)
           setOpenCongrats(true)
         } else {
-          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: "Specify networks like: bridge 10 BAZ from celo to sepolia or bridge 5 BAZ from sepolia to celo" }])
+          setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: "Specify networks like: bridge 10 BAZ from mantle to sepolia or bridge 5 BAZ from sepolia to mantle" }])
         }
       } catch (e: any) {
         setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: e?.message || "Bridge failed" }])
