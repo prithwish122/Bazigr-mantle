@@ -255,7 +255,7 @@ export default function DeFiPage() {
       });
 
       toast({
-        title: "Wrapping CELO...",
+        title: "Wrapping MNT...",
         description: `Transaction: ${hash}`,
       });
 
@@ -263,14 +263,19 @@ export default function DeFiPage() {
 
       toast({
         title: "Success!",
-        description: "CELO wrapped successfully",
+        description: "MNT wrapped successfully",
       });
 
       setWceloAmount("");
+
+      // Trigger data refresh after wrap
+      setTimeout(() => {
+        refreshData();
+      }, 2000); // Wait 2s for block confirmation
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.message || "Failed to wrap CELO",
+        description: error.message || "Failed to wrap MNT",
         variant: "destructive",
       });
     } finally {
@@ -734,7 +739,7 @@ export default function DeFiPage() {
             </Button>
           </div>
           <p className="text-white/60">
-            Swap, provide liquidity, and earn rewards on Celo
+            Swap, provide liquidity, and earn rewards on Mantle
           </p>
           {lastUpdate && (
             <p className="text-xs text-white/40 mt-1">
@@ -778,7 +783,7 @@ export default function DeFiPage() {
           <Card className="backdrop-blur-xl bg-white/5 border border-white/10">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-medium text-white/60">
-                CELO Balance
+                MNT Balance
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -836,7 +841,7 @@ export default function DeFiPage() {
                       disabled={isLoading || !wceloAmount}
                       className="flex-1 bg-white/5 border-white/10 text-white hover:bg-white/10"
                     >
-                      Wrap CELO
+                      Wrap MNT
                     </Button>
                     <Button
                       onClick={handleAddLiquidity}
@@ -898,10 +903,10 @@ export default function DeFiPage() {
                     <select
                       className="px-3 py-2 border rounded-md bg-white/5 border-white/10 text-white"
                       value={swapFromToken}
-                      onChange={(e) => setSwapFromToken(e.target.value as "BAZ" | "WCELO")}
+                      onChange={(e) => setSwapFromToken(e.target.value as "BAZ" | "WMANTLE")}
                     >
                       <option value="BAZ">BAZ</option>
-                      <option value="WCELO">WMANTLE</option>
+                      <option value="WMANTLE">WMANTLE</option>
                     </select>
                     <Input
                       type="number"
@@ -920,7 +925,7 @@ export default function DeFiPage() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => setSwapFromToken(swapFromToken === "BAZ" ? "WCELO" : "BAZ")}
+                    onClick={() => setSwapFromToken(swapFromToken === "BAZ" ? "WMANTLE" : "BAZ")}
                     className="text-white hover:bg-white/10"
                   >
                     ↓
@@ -931,7 +936,7 @@ export default function DeFiPage() {
                   <label className="text-sm font-medium text-white/80">To</label>
                   <div className="flex gap-2">
                     <div className="px-3 py-2 border rounded-md bg-white/10 border-white/10 text-white/80">
-                      {swapFromToken === "BAZ" ? "WCELO" : "BAZ"}
+                      {swapFromToken === "BAZ" ? "WMANTLE" : "BAZ"}
                     </div>
                     <Input
                       type="number"
@@ -945,7 +950,7 @@ export default function DeFiPage() {
 
                 {swapToAmount && (
                   <div className="p-3 bg-white/10 rounded-md text-sm text-white/80">
-                    <p>Rate: 1 {swapFromToken} ≈ {(parseFloat(swapToAmount) / parseFloat(swapFromAmount)).toFixed(6)} {swapFromToken === "BAZ" ? "WCELO" : "BAZ"}</p>
+                    <p>Rate: 1 {swapFromToken} ≈ {(parseFloat(swapToAmount) / parseFloat(swapFromAmount)).toFixed(6)} {swapFromToken === "BAZ" ? "WMANTLE" : "BAZ"}</p>
                     <p className="text-xs text-white/50 mt-1">
                       Trading fee: {DEFI_CONFIG.TRADING_FEE * 100}%
                     </p>

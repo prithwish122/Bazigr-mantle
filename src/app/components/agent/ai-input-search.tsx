@@ -40,7 +40,7 @@ export default function AI_Input_Search({ onSubmit, placeholder }: Props) {
     const { writeContractAsync } = useWriteContract();
     const publicClient = usePublicClient();
 
-    // Deployed addresses on CELO
+    // Deployed addresses on Mantle
     const TOKEN_ADDRESS = useMemo(() => (
         "0x0e4D19ac0ed1CAa536A90C9bb06B6167F1341AFF" as `0x${string}`
     ), []);
@@ -108,8 +108,8 @@ export default function AI_Input_Search({ onSubmit, placeholder }: Props) {
             if (intent.kind === "swap") {
                 if (!intent.amount) throw new Error("No amount found");
                 const wei = parseAmountToWei(intent.amount);
-                if (intent.from === "CELO") {
-                    // CELO -> BAZ
+                if (intent.from === "MNT") {
+                    // MNT -> BAZ
                     if (publicClient) {
                         try {
                             await publicClient.estimateContractGas({
@@ -132,7 +132,7 @@ export default function AI_Input_Search({ onSubmit, placeholder }: Props) {
                     if (publicClient) await publicClient.waitForTransactionReceipt({ hash });
                     toast({ title: "Swap submitted", description: `Swapped ${intent.amount} MNT → ${Number(intent.amount) * 20} BAZ` });
                 } else {
-                    // BAZ -> CELO
+                    // BAZ -> MNT
                     if (publicClient) {
                         try {
                             await publicClient.estimateContractGas({
@@ -187,7 +187,7 @@ export default function AI_Input_Search({ onSubmit, placeholder }: Props) {
                     if (publicClient) await publicClient.waitForTransactionReceipt({ hash: txHash });
                     toast({ title: "Token sent", description: `Sent ${intent.amount} BAZ to ${intent.to}` });
                 } else {
-                    // Native CELO send
+                    // Native MNT send
                     const wei = parseAmountToWei(intent.amount);
                     if (!publicClient) throw new Error("No client");
                     const hash = await publicClient.sendTransaction({

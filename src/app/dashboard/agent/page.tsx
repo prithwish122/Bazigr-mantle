@@ -445,9 +445,9 @@ export default function AgentPage() {
             {
               chainId: mantleChainId,
               chainName: "Mantle Sepolia Testnet",
-              nativeCurrency: { name: "CELO", symbol: "CELO", decimals: 18 },
-              rpcUrls: ["https://forno.celo-sepolia.celo-testnet.org/"],
-              blockExplorerUrls: ["https://celo-sepolia.blockscout.com/"],
+              nativeCurrency: { name: "MNT", symbol: "MNT", decimals: 18 },
+              rpcUrls: ["https://rpc.sepolia.mantle.xyz"],
+              blockExplorerUrls: ["https://sepolia.mantlescan.xyz/"],
             },
           ],
         })

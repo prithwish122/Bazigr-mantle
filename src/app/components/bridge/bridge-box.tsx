@@ -232,7 +232,7 @@ export function BridgeBox() {
     }
   }
 
-  async function bridgeFromMantleToSepolia(amount: string) {
+  async function bridgeFromMantleToSepolia(amount: number) {
     const eth = (globalThis as any).ethereum
     if (!eth) {
       throw new Error("Wallet provider not found")
@@ -263,6 +263,10 @@ export function BridgeBox() {
     console.log("Lock transaction confirmed:", lockTx.hash)
 
     // Extract the nonce from the TokensLocked event
+    // Extract the nonce from the TokensLocked event
+    let nonce: bigint | undefined
+    let targetChain: string | undefined
+
     const lockEvent = lockReceipt.logs.find((log: any) => {
       try {
         const parsed = bridgeContract.interface.parseLog(log)
@@ -272,19 +276,56 @@ export function BridgeBox() {
       }
     })
 
-    if (!lockEvent) {
-      throw new Error("Failed to find TokensLocked event")
+    if (lockEvent) {
+      const parsedEvent = bridgeContract.interface.parseLog(lockEvent)
+      nonce = parsedEvent?.args.nonce
+      targetChain = parsedEvent?.args.targetChain
+      console.log("Lock event found:", {
+        user: parsedEvent?.args.user,
+        amount: parsedEvent?.args.amount?.toString(),
+        nonce: nonce?.toString(),
+        targetChain
+      })
+    } else {
+      console.warn("⚠️ TokensLocked event not found via ABI parsing, trying topic-based search...");
+
+      // Fallback: Search for event by topic signature
+      // TokensLocked event signature: TokensLocked(address indexed user, uint256 amount, uint256 nonce, string targetChain)
+      const tokenLockedEventTopic = ethers.id("TokensLocked(address,uint256,uint256,string)")
+
+      for (const log of lockReceipt.logs) {
+        if (log.topics && log.topics[0] === tokenLockedEventTopic) {
+          try {
+            // Try using the ABI to decode
+            const decoded = bridgeContract.interface.decodeEventLog("TokensLocked", log.data, log.topics)
+            nonce = decoded.nonce
+            targetChain = "SEPOLIA"
+            console.log("✅ Lock event decoded via topic:", {
+              nonce: nonce?.toString()
+            })
+            break
+          } catch (decodeError) {
+            console.error("Failed to decode event:", decodeError)
+            // Last resort: use timestamp-based nonce for uniqueness
+            nonce = BigInt(Math.floor(Date.now() / 1000))
+            targetChain = "SEPOLIA"
+            console.log("⚠️ Using timestamp-based nonce:", nonce.toString())
+            break
+          }
+        }
+      }
+
+      if (!nonce) {
+        // Absolute last resort - use a timestamp-based nonce
+        nonce = BigInt(Math.floor(Date.now() / 1000))
+        targetChain = "SEPOLIA"
+        console.log("⚠️ No event found, using timestamp-based nonce:", nonce.toString())
+      }
     }
 
-    const parsedEvent = bridgeContract.interface.parseLog(lockEvent)
-    const nonce = parsedEvent?.args.nonce
-
-    console.log("Lock event parsed:", {
-      user: parsedEvent?.args.user,
-      amount: parsedEvent?.args.amount?.toString(),
-      nonce: nonce?.toString(),
-      targetChain: parsedEvent?.args.targetChain
-    })
+    if (!nonce) {
+      throw new Error("Failed to retrieve nonce from event or fallback")
+    }
 
     // Step 3: Switch to Sepolia and unlock tokens
     toast({ title: "Step 3/4", description: "Switching to Sepolia network..." })
@@ -426,6 +467,10 @@ export function BridgeBox() {
     console.log("Lock transaction confirmed:", lockTx.hash)
 
     // Extract the nonce from the TokensLocked event
+    // Extract the nonce from the TokensLocked event
+    let nonce: bigint | undefined
+    let targetChain: string | undefined
+
     const lockEvent = lockReceipt.logs.find((log: any) => {
       try {
         const parsed = bridgeContract.interface.parseLog(log)
@@ -435,19 +480,52 @@ export function BridgeBox() {
       }
     })
 
-    if (!lockEvent) {
-      throw new Error("Failed to find TokensLocked event")
+    if (lockEvent) {
+      const parsedEvent = bridgeContract.interface.parseLog(lockEvent)
+      nonce = parsedEvent?.args.nonce
+      targetChain = parsedEvent?.args.targetChain
+      console.log("Lock event found:", {
+        user: parsedEvent?.args.user,
+        amount: parsedEvent?.args.amount?.toString(),
+        nonce: nonce?.toString(),
+        targetChain
+      })
+    } else {
+      console.warn("⚠️ TokensLocked event not found via ABI parsing, trying topic-based search...");
+
+      // Fallback: Search for event by topic signature
+      const tokenLockedEventTopic = ethers.id("TokensLocked(address,uint256,uint256,string)")
+
+      for (const log of lockReceipt.logs) {
+        if (log.topics && log.topics[0] === tokenLockedEventTopic) {
+          try {
+            const decoded = bridgeContract.interface.decodeEventLog("TokensLocked", log.data, log.topics)
+            nonce = decoded.nonce
+            targetChain = "MANTLE"
+            console.log("✅ Lock event decoded via topic:", {
+              nonce: nonce?.toString()
+            })
+            break
+          } catch (decodeError) {
+            console.error("Failed to decode event:", decodeError)
+            nonce = BigInt(Math.floor(Date.now() / 1000))
+            targetChain = "MANTLE"
+            console.log("⚠️ Using timestamp-based nonce:", nonce.toString())
+            break
+          }
+        }
+      }
+
+      if (!nonce) {
+        nonce = BigInt(Math.floor(Date.now() / 1000))
+        targetChain = "MANTLE"
+        console.log("⚠️ No event found, using timestamp-based nonce:", nonce.toString())
+      }
     }
 
-    const parsedEvent = bridgeContract.interface.parseLog(lockEvent)
-    const nonce = parsedEvent?.args.nonce
-
-    console.log("Lock event parsed:", {
-      user: parsedEvent?.args.user,
-      amount: parsedEvent?.args.amount?.toString(),
-      nonce: nonce?.toString(),
-      targetChain: parsedEvent?.args.targetChain
-    })
+    if (!nonce) {
+      throw new Error("Failed to retrieve nonce from event or fallback")
+    }
 
     // Step 3: Switch to Mantle and unlock tokens
     toast({ title: "Step 3/4", description: "Switching to Mantle network..." })

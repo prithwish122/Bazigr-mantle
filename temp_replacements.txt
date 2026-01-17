@@ -1,0 +1,21 @@
+Lines to replace in agent/page.tsx:
+
+242: /celo\s+to\s+sepolia/ -> /mantle\s+to\s+sepolia/
+243: /sepolia\s+to\s+(u2u|celo)/ -> /sepolia\s+to\s+(u2u|mantle)/
+245: | "celo" | -> | "mantle" |
+247: /to\s+celo/ -> /to\s+mantle/
+250: /celo\s+to\s+sepolia/ -> /mantle\s+to\s+sepolia/
+252: /sepolia\s+to\s+celo/ -> /sepolia\s+to\s+mantle/
+259: bridgeFromCeloToSepolia -> bridgeFromMantleToSepolia
+272: "Please switch to CELO" -> "Please switch to Mantle"
+392: bridgeFromSepoliaToCelo -> bridgeFromSepoliaToMantle
+448-450: CELO network config -> MNT network config
+462-476: CELO references -> Mantle references  
+794: "CELO" -> "MNT"
+814: "CELO →" -> "MNT →"
+818: "// BAZ -> CELO" -> "// BAZ -> MNT"
+842: "CELO" -> "MNT"
+870: "Native CELO" -> "Native MNT"
+878: "CELO to" -> "MNT to"
+896-905: celo network -> mantle network
+921: instruction text -> MNT text
