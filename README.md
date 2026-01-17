@@ -1,6 +1,6 @@
 # 🎯 Bazigr DeFi Platform
 
-**Live Demo:** [https://bazigr-fun.vercel.app/](https://bazigr-fun.vercel.app/)  
+**Live Demo:** [https://bazigr-app.vercel.app/](https://bazigr-app.vercel.app/)  
 **Network:** Mantle Sepolia Testnet  
 
 ---
